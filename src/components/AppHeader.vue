@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { shelflingApi } from '@/api/shelflingApi';
-import { useRouter } from 'vue-router';
+import { useShelflingApi } from '@/composables/useShelflingApi';
 import { useUserStore } from '@/stores/userStore';
 import { Icon } from '@iconify/vue';
 
-const userStore = useUserStore();
-const router = useRouter();
+const { logOut } = useShelflingApi();
 
-async function logOut() {
-    await shelflingApi.logOut();
-    router.push('/login');
-}
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -21,7 +16,7 @@ async function logOut() {
         <div>
             <div v-if="userStore.user" class="flex items-center gap-2">
                 {{ userStore.user.name }}
-                <Icon icon="mdi:logout" class="cursor-pointer" @click="logOut"><desc>test</desc></Icon>
+                <Icon icon="mdi:logout" class="cursor-pointer" @click="logOut" />
             </div>
             <div v-else>
                 <RouterLink to="/login">

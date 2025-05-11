@@ -13,8 +13,10 @@ async function logOut() {
 </script>
 
 <template>
-    <header class="app-header">
-        <h1>Shelfling</h1>
+    <header class="app-header flex justify-between items-center border-b h-[4.5rem] px-4">
+        <RouterLink to="/">
+            <h1>Shelfling</h1>
+        </RouterLink>
         <div>
             <div v-if="userStore.user">
                 {{ userStore.user.name }}
@@ -30,11 +32,3 @@ async function logOut() {
         </div>
     </header>
 </template>
-
-<style scoped>
-.app-header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-</style>

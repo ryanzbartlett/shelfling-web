@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+@layer base {
+    h1 {
+        @apply font-bold font-serif;
+    }
+
+    input {
+        &[type=text],
+        &[type=email],
+        &[type=password] {
+            @apply border flex items-center
+                h-9 px-2;
+        }
+    }
+
+    button {
+        @apply border inline-flex items-center
+            justify-center h-9 px-4 cursor-pointer;
+
+        &[disabled] {
+            @apply cursor-not-allowed opacity-65;
+        }
+    }
+}
+
+@layer theme {
+    .form-group {
+        @apply flex flex-col;
+    }
+}

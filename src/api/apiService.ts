@@ -7,7 +7,7 @@ declare module 'axios' {
 }
 
 export class ApiService {
-    private client;
+    protected client;
     private tokenKey;
 
     constructor(baseUrl: string, config?: {

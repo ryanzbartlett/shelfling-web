@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LayoutDefault from '@/layouts/LayoutDefault.vue';
+
+</script>
 
 <template>
-  <main>
+  <LayoutDefault>
     🚧 Under Construction 🚧
-  </main>
+  </LayoutDefault>
 </template>

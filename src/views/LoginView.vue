@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LoginForm from '@/components/LoginForm.vue';
+import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 import { shelflingApi } from '@/api/shelflingApi';
@@ -18,7 +19,7 @@ async function onSuccess() {
 </script>
 
 <template>
-    <div class="login-view">
-        <LoginForm @success="onSuccess" />
-    </div>
+    <LayoutDefault class="login-view flex items-center justify-center">
+        <LoginForm class="w-100 max-w-[20rem]" @success="onSuccess" />
+    </LayoutDefault>
 </template>

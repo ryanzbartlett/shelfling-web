@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { shelflingApi } from '@/api/shelflingApi';
 
 const emit = defineEmits<{
     success: [];
@@ -9,21 +10,10 @@ const email = ref('');
 const password = ref('');
 
 const handleLogin = async () => {
-    const res = await fetch('http://api.shelfling.test/api/login', {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            email: email.value,
-            password: password.value,
-        }),
+    await shelflingApi.logIn({
+        email: email.value,
+        password: password.value,
     });
-
-    console.log(res);
-
-    // TODO: store auth token
 
     emit('success');
 };

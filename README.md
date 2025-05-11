@@ -1,6 +1,6 @@
-# shelfling
+# Shelfling
 
-This template should help get you started developing with Vue 3 in Vite.
+Shelfling is a cool media inventory app.
 
 ## Recommended IDE Setup
 

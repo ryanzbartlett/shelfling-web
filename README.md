@@ -1,6 +1,6 @@
 # Shelfling
 
-Shelfing is a cool media inventory app.
+Shelfling is a cool media inventory app.
 
 ## Recommended IDE Setup
 

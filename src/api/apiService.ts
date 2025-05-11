@@ -13,7 +13,7 @@ export class ApiService {
     constructor(baseUrl: string, config?: {
         tokenKey?: string;
     }) {
-        this.tokenKey = config?.tokenKey ?? 'access_token';
+        this.tokenKey = config?.tokenKey ?? 'access-token';
 
         this.client = axios.create({
             baseURL: baseUrl,
@@ -56,11 +56,21 @@ export class ApiService {
 
     private setAccessToken(token: ApiService.AccessToken) {
         localStorage.setItem(this.tokenKey, JSON.stringify(token));
+        window.dispatchEvent(new CustomEvent(`${this.tokenKey}-set`, {
+            detail: {
+                storage: localStorage.getItem(this.tokenKey),
+            },
+        }));
     }
 
     private clearAccessToken() {
         localStorage.removeItem(this.tokenKey);
         this.client.defaults.headers.common.Authorization = undefined;
+        window.dispatchEvent(new CustomEvent(`${this.tokenKey}-removed`));
+    }
+
+    onAccessRevoked(fn: () => void) {
+        window.addEventListener(`${this.tokenKey}-removed`, fn);
     }
 
     isAuthenticated(): boolean {
@@ -106,5 +116,13 @@ export class ApiService {
     async logOut() {
         await this.client.get('/logout');
         this.clearAccessToken();
+    };
+
+    /**
+     * Get the current user
+     */
+    async getUser() {
+        const response = await this.client.get<ApiService.Resource<ApiService.User>>('/user');
+        return response.data.data;
     };
 }

@@ -2,6 +2,7 @@
 import { useShelflingApi } from '@/composables/useShelflingApi';
 import { useUserStore } from '@/stores/userStore';
 import { Icon } from '@iconify/vue';
+import AppNav from '@/components/AppNav.vue';
 
 const { logOut } = useShelflingApi();
 
@@ -13,6 +14,7 @@ const userStore = useUserStore();
         <RouterLink to="/">
             <h1>Shelfling</h1>
         </RouterLink>
+        <AppNav />
         <div>
             <div v-if="userStore.user" class="flex items-center gap-2">
                 {{ userStore.user.name }}

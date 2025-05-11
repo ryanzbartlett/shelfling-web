@@ -2,6 +2,7 @@
 import { shelflingApi } from '@/api/shelflingApi';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
+import { Icon } from '@iconify/vue';
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -18,11 +19,9 @@ async function logOut() {
             <h1>Shelfling</h1>
         </RouterLink>
         <div>
-            <div v-if="userStore.user">
+            <div v-if="userStore.user" class="flex items-center gap-2">
                 {{ userStore.user.name }}
-                <button @click="logOut">
-                    Log Out
-                </button>
+                <Icon icon="mdi:logout" class="cursor-pointer" @click="logOut"><desc>test</desc></Icon>
             </div>
             <div v-else>
                 <RouterLink to="/login">

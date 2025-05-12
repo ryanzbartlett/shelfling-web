@@ -1,6 +1,5 @@
-import type { Library } from '@/types/shelflingApi';
+import type { Library, LibraryType } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
-import { LibraryFactory } from '@/api/factories/libraryFactory';
 
 export class ShelflingApi extends ApiService {
     constructor() {
@@ -8,10 +7,27 @@ export class ShelflingApi extends ApiService {
     }
 
     async getLibraries(): Promise<Library[]> {
-        return new Promise(async (res) => {
-            await new Promise((res) => setTimeout(res, 500));
-            res(new LibraryFactory().createManySorted(5));
+        const res = await this.client.get<ApiService.Resource<Library[]>>('/libraries', {
+            requiresAuth: true,
         });
+        return res.data.data;
+        // TODO: Handle mocking
+        // return new Promise(async (res) => {
+        //     await new Promise((res) => setTimeout(res, 500));
+        //     res(new LibraryFactory().createManySorted(5));
+        // });
+    }
+
+    async createLibrary(req: {
+        name: string;
+        type: LibraryType;
+    }) {
+        const res = await this.client.post<ApiService.Resource<Library>>(
+            '/libraries',
+            req,
+            { requiresAuth: true },
+        );
+        return res.data.data;
     }
 }
 

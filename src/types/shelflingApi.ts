@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 const LibraryTypes = {
-    Book: 0,
-    Movie: 1,
+    Book: 1,
+    Movie: 2,
 } as const;
 
 const LibraryTypeEnum = z.nativeEnum(LibraryTypes);

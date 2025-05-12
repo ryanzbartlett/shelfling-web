@@ -28,12 +28,17 @@ onMounted(() => {
         <div v-if="loadingLibraries">
             Loading libraries...
         </div>
-        <ul v-else-if="libraries">
-            <li v-for="library in libraries" :key="library.id" class="flex items-center gap-2">
-                <Icon :icon="library.type === LibraryTypes.Book ? 'mdi:book' : 'mdi:filmstrip'" inline />
-                {{ library.name }}
-            </li>
-        </ul>
+        <div v-else-if="libraries">
+            <ul v-if="libraries.length > 0">
+                <li v-for="library in libraries" :key="library.id" class="flex items-center gap-2">
+                    <Icon :icon="library.type === LibraryTypes.Book ? 'mdi:book' : 'mdi:filmstrip'" inline />
+                    {{ library.name }}
+                </li>
+            </ul>
+            <div v-else>
+                No libraries yet. Go make some! 🤪
+            </div>
+        </div>
         <div v-else>
             Something went wrong ☹️
         </div>

@@ -14,6 +14,11 @@
         }
     }
 
+    select {
+        @apply border flex items-center
+            h-9 px-2;
+    }
+
     button {
         @apply border inline-flex items-center
             justify-center h-9 px-4 cursor-pointer;

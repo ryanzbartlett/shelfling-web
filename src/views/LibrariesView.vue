@@ -9,6 +9,8 @@ const isCreateLibraryDialogVisible = ref(false);
 function showCreateLibraryDialog() {
     isCreateLibraryDialogVisible.value = true;
 }
+
+function onLibraryDeleted() {}
 </script>
 
 <template>
@@ -21,6 +23,6 @@ function showCreateLibraryDialog() {
         </header>
         <CreateLibraryDialog v-model="isCreateLibraryDialogVisible" />
         <hr class="my-4 opacity-25" />
-        <LibraryList />
+        <LibraryList @library-deleted="onLibraryDeleted" />
     </LayoutDefault>
 </template>

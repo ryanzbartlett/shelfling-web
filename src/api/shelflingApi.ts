@@ -29,6 +29,12 @@ export class ShelflingApi extends ApiService {
         );
         return res.data.data;
     }
+
+    async deleteLibrary(id: string) {
+        await this.client.delete(`/libraries/${id}`, {
+            requiresAuth: true,
+        });
+    }
 }
 
 export const shelflingApi = new ShelflingApi();

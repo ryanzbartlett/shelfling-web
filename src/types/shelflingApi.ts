@@ -19,11 +19,20 @@ type LibraryType = z.infer<typeof LibraryTypeEnum>;
 
 type Library = z.infer<typeof librarySchema>;
 
+const createLibraryParamsSchema = z.object({
+    name: z.string().min(1).max(255),
+    type: LibraryTypeEnum,
+});
+
+type CreateLibraryParams = z.infer<typeof createLibraryParamsSchema>;
+
 export {
     LibraryTypes,
     LibraryTypeEnum,
     librarySchema,
+    createLibraryParamsSchema,
 
     type LibraryType,
     type Library,
+    type CreateLibraryParams,
 };

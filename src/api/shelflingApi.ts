@@ -1,4 +1,4 @@
-import type { Library, LibraryType } from '@/types/shelflingApi';
+import type { CreateLibraryParams, Library } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
 
 export class ShelflingApi extends ApiService {
@@ -18,13 +18,10 @@ export class ShelflingApi extends ApiService {
         // });
     }
 
-    async createLibrary(req: {
-        name: string;
-        type: LibraryType;
-    }) {
+    async createLibrary(params: CreateLibraryParams) {
         const res = await this.client.post<ApiService.Resource<Library>>(
             '/libraries',
-            req,
+            params,
             { requiresAuth: true },
         );
         return res.data.data;

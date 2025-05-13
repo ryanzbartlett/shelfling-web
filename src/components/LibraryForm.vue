@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { shelflingApi } from '@/api/shelflingApi';
+import { useLibrary } from '@/composables/useLibraries';
 import { LibraryTypes, type LibraryType } from '@/types/shelflingApi';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 
 const emit = defineEmits<{
     success: [];
@@ -21,27 +21,22 @@ function resetFormFields() {
     Object.assign(newLibrary, getDefaultLibrary());
 }
 
-const createLibraryPending = ref(false);
-
-async function createLibrary() {
-    try {
-        createLibraryPending.value = true;
-        await shelflingApi.createLibrary(newLibrary);
+const {
+    createLibrary,
+    createLibraryPending,
+} = useLibrary({
+    onCreateSuccess: () => {
         resetFormFields();
         emit('success');
-    } catch (error) {
-        console.error(error);
-    } finally {
-        createLibraryPending.value = false;
-    }
-}
+    },
+});
 </script>
 
 <template>
     <div class="library-form">
         <form
             class="flex flex-col gap-4"
-            @submit.prevent="createLibrary"
+            @submit.prevent="() => createLibrary(newLibrary)"
         >
             <div class="form-group">
                 <label for="name">Name</label>

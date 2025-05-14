@@ -29,10 +29,13 @@ const {
         <div v-else-if="libraries">
             <ul v-if="libraries.length > 0">
                 <li v-for="library in libraries" :key="library.id" class="flex items-center gap-2">
-                    <div class="flex items-center gap-2">
+                    <RouterLink
+                        :to="{ name: 'Library', params: { id: library.id } }"
+                        class="flex items-center gap-2"
+                    >
                         <Icon :icon="library.type === LibraryTypes.Book ? 'mdi:book' : 'mdi:filmstrip'" inline />
                         {{ library.name }}
-                    </div>
+                    </RouterLink>
                     <div>
                         <Icon icon="mdi:delete-circle" class="cursor-pointer" inline @click="deleteLibary(library.id)" />
                     </div>

@@ -11,13 +11,15 @@ const userStore = useUserStore();
 
 <template>
     <header class="app-header flex justify-between items-center border-b h-[4.5rem] px-4">
-        <RouterLink to="/">
+        <RouterLink :to="{ name: 'Home' }" class="home-link">
             <h1>Shelfling</h1>
         </RouterLink>
         <AppNav />
         <div>
             <div v-if="userStore.user" class="flex items-center gap-2">
-                {{ userStore.user.name }}
+                <RouterLink :to="{ name: 'Account' }">
+                    {{ userStore.user.name }}
+                </RouterLink>
                 <Icon icon="mdi:logout" class="cursor-pointer" @click="logOut" />
             </div>
             <div v-else>
@@ -28,3 +30,10 @@ const userStore = useUserStore();
         </div>
     </header>
 </template>
+
+<style scoped>
+.router-link-active:not(.home-link) {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+}
+</style>

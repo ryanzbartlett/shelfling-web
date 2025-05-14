@@ -1,33 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
 import { shelflingApi } from '@/api/shelflingApi';
+import publicRoutes from './routes/publicRoutes';
+import authRoutes from './routes/authRoutes';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        {
-            path: '/',
-            name: 'Home',
-            component: HomeView,
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: () => import('@/views/LoginView.vue'),
-        },
-        {
-            path: '/logout',
-            name: 'Logout',
-            component: () => import('@/views/LogoutView.vue'),
-        },
-        {
-            path: '/libraries',
-            name: 'Libraries',
-            component: () => import('@/views/LibrariesView.vue'),
-            meta: {
-                requiresAuth: true,
-            },
-        },
+        ...publicRoutes,
+        ...authRoutes,
         {
             path: '/not-found',
             name: 'NotFound',

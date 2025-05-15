@@ -6,7 +6,9 @@ const isVisible = defineModel<boolean>({ required: true });
 const baseDialog = useTemplateRef('baseDialog');
 
 function assertBaseDialog() {
-    if (!baseDialog.value) throw new Error('Base dialog missing');
+    if (!baseDialog.value) {
+        throw new Error('Base dialog missing');
+    }
     return baseDialog.value;
 }
 
@@ -28,7 +30,11 @@ watch(isVisible, (val) => {
 </script>
 
 <template>
-    <dialog ref="baseDialog" class="m-auto">
+    <dialog
+        ref="baseDialog"
+        class="m-auto"
+        @close="isVisible = false"
+    >
         <slot />
     </dialog>
 </template>

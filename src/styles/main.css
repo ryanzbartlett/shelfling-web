@@ -27,6 +27,10 @@
             @apply cursor-not-allowed opacity-65;
         }
     }
+
+    dialog {
+        @apply p-4;
+    }
 }
 
 @layer theme {

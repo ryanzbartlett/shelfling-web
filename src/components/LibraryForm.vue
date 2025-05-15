@@ -59,7 +59,7 @@ const {
                     <option :value="2">Movie</option>
                 </select>
             </div>
-            <div>
+            <div class="flex justify-end">
                 <button
                     type="submit"
                     :disabled="createLibraryPending"

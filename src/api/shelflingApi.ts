@@ -1,4 +1,4 @@
-import type { CreateLibraryParams, Library } from '@/types/shelflingApi';
+import type { AddLibraryUsersParams, CreateLibraryParams, Library } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
 
 export class ShelflingApi extends ApiService {
@@ -29,6 +29,12 @@ export class ShelflingApi extends ApiService {
 
     async deleteLibrary(id: string) {
         await this.client.delete(`/libraries/${id}`, {
+            requiresAuth: true,
+        });
+    }
+
+    async addLibraryUsers(id: string, params: AddLibraryUsersParams) {
+        await this.client.post(`/libraries/${id}/users`, params, {
             requiresAuth: true,
         });
     }

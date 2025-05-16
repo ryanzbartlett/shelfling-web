@@ -7,6 +7,14 @@ const LibraryTypes = {
 
 const LibraryTypeEnum = z.nativeEnum(LibraryTypes);
 
+const LibraryUserRoles = {
+    Owner: 1,
+    Editor: 2,
+    Viewer: 3,
+} as const;
+
+const LibraryUserRoleEnum = z.nativeEnum(LibraryUserRoles);
+
 const librarySchema = z.object({
     id: z.string().uuid(),
     name: z.string().min(1).max(255),
@@ -26,13 +34,24 @@ const createLibraryParamsSchema = z.object({
 
 type CreateLibraryParams = z.infer<typeof createLibraryParamsSchema>;
 
+const addLibraryUsersParamsSchema = z.object({
+    users: z.array(z.object({
+        email: z.string().email(),
+        role: LibraryUserRoleEnum,
+    })),
+});
+
+type AddLibraryUsersParams = z.infer<typeof addLibraryUsersParamsSchema>;
+
 export {
     LibraryTypes,
     LibraryTypeEnum,
     librarySchema,
     createLibraryParamsSchema,
+    addLibraryUsersParamsSchema,
 
     type LibraryType,
     type Library,
     type CreateLibraryParams,
+    type AddLibraryUsersParams,
 };

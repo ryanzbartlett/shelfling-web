@@ -13,6 +13,8 @@ const LibraryUserRoles = {
     Viewer: 3,
 } as const;
 
+type LibraryUserRole = typeof LibraryUserRoles[keyof typeof LibraryUserRoles];
+
 const LibraryUserRoleEnum = z.nativeEnum(LibraryUserRoles);
 
 const librarySchema = z.object({
@@ -74,6 +76,7 @@ export {
     libraryUserSchema,
     libraryBookSchema,
 
+    type LibraryUserRole,
     type LibraryType,
     type Library,
     type CreateLibraryParams,

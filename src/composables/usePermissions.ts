@@ -1,4 +1,4 @@
-import { LibraryUserRoles } from '@/types/shelflingApi';
+import { type LibraryUserRole, LibraryUserRoles } from '@/types/shelflingApi';
 import type { Library } from '@/types/shelflingApi';
 
 // Define permission actions for libraries
@@ -11,22 +11,24 @@ export enum LibraryAction {
 }
 
 // Define role-based permissions map
-const libraryPermissions = {
-    [LibraryUserRoles.Owner]: [
-        LibraryAction.VIEW,
-        LibraryAction.EDIT,
-        LibraryAction.DELETE,
-        LibraryAction.MANAGE_USERS,
-        LibraryAction.ASSIGN_OWNER,
-    ],
-    [LibraryUserRoles.Editor]: [
-        LibraryAction.VIEW,
-        LibraryAction.EDIT,
-    ],
-    [LibraryUserRoles.Viewer]: [
-        LibraryAction.VIEW,
-    ],
-};
+const libraryPermissions = new Map<LibraryUserRole, LibraryAction[]>();
+
+libraryPermissions.set(LibraryUserRoles.Owner, [
+    LibraryAction.VIEW,
+    LibraryAction.EDIT,
+    LibraryAction.DELETE,
+    LibraryAction.MANAGE_USERS,
+    LibraryAction.ASSIGN_OWNER,
+]);
+
+libraryPermissions.set(LibraryUserRoles.Editor, [
+    LibraryAction.VIEW,
+    LibraryAction.EDIT,
+]);
+
+libraryPermissions.set(LibraryUserRoles.Viewer, [
+    LibraryAction.VIEW,
+]);
 
 export function usePermissions() {
     /**
@@ -41,7 +43,7 @@ export function usePermissions() {
         }
 
         const userRole = library.role;
-        const allowedActions = libraryPermissions[userRole] || [];
+        const allowedActions = libraryPermissions.get(userRole) || [];
 
         return allowedActions.includes(action);
     };

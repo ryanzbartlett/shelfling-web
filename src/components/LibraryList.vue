@@ -2,10 +2,13 @@
 import { useLibraries, useLibrary } from '@/composables/useLibraries';
 import { LibraryTypes } from '@/types/shelflingApi';
 import { Icon } from '@iconify/vue';
+import { usePermissions } from '@/composables/usePermissions';
 
 const emit = defineEmits<{
     libraryDeleted: [payload: string];
 }>();
+
+const { canDeleteLibrary } = usePermissions();
 
 const {
     data: libraries,
@@ -36,7 +39,7 @@ const {
                         <Icon :icon="library.type === LibraryTypes.Book ? 'mdi:book' : 'mdi:filmstrip'" inline />
                         {{ library.name }}
                     </RouterLink>
-                    <div v-if="library.role === 1">
+                    <div v-if="canDeleteLibrary(library)">
                         <Icon icon="mdi:delete-circle" class="cursor-pointer" inline @click="deleteLibary(library.id)" />
                     </div>
                 </li>

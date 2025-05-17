@@ -18,6 +18,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/LibraryView.vue'),
         props: true,
     },
+    {
+        path: '/libraries/:id/settings',
+        name: 'LibrarySettings',
+        component: () => import('@/views/LibrarySettingsView.vue'),
+        props: true,
+    },
 ];
 
 export default routes.map((route: RouteRecordRaw) => {

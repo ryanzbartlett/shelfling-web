@@ -46,6 +46,8 @@ type AddLibraryUsersParams = z.infer<typeof addLibraryUsersParamsSchema>;
 export {
     LibraryTypes,
     LibraryTypeEnum,
+    LibraryUserRoles,
+    LibraryUserRoleEnum,
     librarySchema,
     createLibraryParamsSchema,
     addLibraryUsersParamsSchema,

@@ -36,7 +36,7 @@ const {
                         <Icon :icon="library.type === LibraryTypes.Book ? 'mdi:book' : 'mdi:filmstrip'" inline />
                         {{ library.name }}
                     </RouterLink>
-                    <div>
+                    <div v-if="library.role === 1">
                         <Icon icon="mdi:delete-circle" class="cursor-pointer" inline @click="deleteLibary(library.id)" />
                     </div>
                 </li>

@@ -21,6 +21,7 @@ const librarySchema = z.object({
     type: LibraryTypeEnum,
     created_at: z.string().datetime(),
     updated_at: z.string().datetime(),
+    role: LibraryUserRoleEnum,
 });
 
 type LibraryType = z.infer<typeof LibraryTypeEnum>;
@@ -43,6 +44,25 @@ const addLibraryUsersParamsSchema = z.object({
 
 type AddLibraryUsersParams = z.infer<typeof addLibraryUsersParamsSchema>;
 
+const libraryUserSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    email: z.string().email(),
+    role: LibraryUserRoleEnum,
+});
+
+type LibraryUser = z.infer<typeof libraryUserSchema>;
+
+const libraryBookSchema = z.object({
+    id: z.number(),
+    title: z.string(),
+    author: z.string(),
+    created_at: z.string().datetime(),
+    updated_at: z.string().datetime(),
+});
+
+type LibraryBook = z.infer<typeof libraryBookSchema>;
+
 export {
     LibraryTypes,
     LibraryTypeEnum,
@@ -51,9 +71,13 @@ export {
     librarySchema,
     createLibraryParamsSchema,
     addLibraryUsersParamsSchema,
+    libraryUserSchema,
+    libraryBookSchema,
 
     type LibraryType,
     type Library,
     type CreateLibraryParams,
     type AddLibraryUsersParams,
+    type LibraryUser,
+    type LibraryBook,
 };

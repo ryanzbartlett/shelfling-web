@@ -1,4 +1,4 @@
-import type { AddLibraryUsersParams, CreateLibraryParams, Library } from '@/types/shelflingApi';
+import type { AddLibraryUsersParams, CreateLibraryParams, Library, LibraryUser } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
 
 export class ShelflingApi extends ApiService {
@@ -11,11 +11,6 @@ export class ShelflingApi extends ApiService {
             requiresAuth: true,
         });
         return res.data.data;
-        // TODO: Handle mocking
-        // return new Promise(async (res) => {
-        //     await new Promise((res) => setTimeout(res, 500));
-        //     res(new LibraryFactory().createManySorted(5));
-        // });
     }
 
     async createLibrary(params: CreateLibraryParams) {
@@ -24,6 +19,13 @@ export class ShelflingApi extends ApiService {
             params,
             { requiresAuth: true },
         );
+        return res.data.data;
+    }
+
+    async getLibrary(id: string) {
+        const res = await this.client.get<ApiService.Resource<Library>>(`/libraries/${id}`, {
+            requiresAuth: true,
+        });
         return res.data.data;
     }
 
@@ -37,6 +39,13 @@ export class ShelflingApi extends ApiService {
         await this.client.post(`/libraries/${id}/users`, params, {
             requiresAuth: true,
         });
+    }
+
+    async getLibraryUsers(id: string) {
+        const res = await this.client.get<ApiService.Resource<LibraryUser[]>>(`/libraries/${id}/users`, {
+            requiresAuth: true,
+        });
+        return res.data.data;
     }
 }
 

@@ -14,15 +14,21 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/libraries/:id',
-        name: 'Library',
-        component: () => import('@/views/LibraryView.vue'),
+        name: 'LibraryParent',
+        component: () => import('@/views/LibraryParent.vue'),
         props: true,
-    },
-    {
-        path: '/libraries/:id/settings',
-        name: 'LibrarySettings',
-        component: () => import('@/views/LibrarySettingsView.vue'),
-        props: true,
+        children: [
+            {
+                path: '',
+                name: 'Library',
+                component: () => import('@/views/LibraryView.vue'),
+            },
+            {
+                path: 'settings',
+                name: 'LibrarySettings',
+                component: () => import('@/views/LibrarySettingsView.vue'),
+            },
+        ],
     },
 ];
 

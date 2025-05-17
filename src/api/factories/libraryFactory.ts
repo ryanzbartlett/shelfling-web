@@ -1,4 +1,4 @@
-import { LibraryTypes, type Library } from '@/types/shelflingApi';
+import { LibraryTypes, LibraryUserRoles, type Library } from '@/types/shelflingApi';
 import { faker } from '@faker-js/faker';
 import { Factory } from './factory';
 
@@ -14,6 +14,7 @@ export class LibraryFactory extends Factory<Library> {
             ]),
             created_at: created_at.toISOString(),
             updated_at: faker.date.between({ from: created_at, to: Date.now() }).toISOString(),
+            role: LibraryUserRoles.Owner, // Default to Owner role
         };
     }
 

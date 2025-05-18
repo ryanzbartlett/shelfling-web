@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useMutation } from '@tanstack/vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { shelflingApi } from '@/api/shelflingApi';
 import type { AddLibraryUsersParams } from '@/types/shelflingApi';
 import { LibraryUserRoles } from '@/types/shelflingApi';
@@ -12,6 +12,8 @@ const props = defineProps<{
 const emit = defineEmits<{
     success: [];
 }>();
+
+const queryClient = useQueryClient();
 
 interface Member {
     email: string;
@@ -44,6 +46,7 @@ const {
 } = useMutation({
     mutationFn: (params: AddLibraryUsersParams) => shelflingApi.addLibraryUsers(props.libraryId, params),
     onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['libraryUsers', props.libraryId] });
         members.value = [getDefaultMember()];
         emit('success');
     },

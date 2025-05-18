@@ -1,4 +1,4 @@
-import type { AddLibraryUsersParams, CreateLibraryParams, Library, LibraryUser } from '@/types/shelflingApi';
+import type { AddLibraryUsersParams, CreateLibraryParams, Library, LibraryBook, LibraryUser } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
 
 export class ShelflingApi extends ApiService {
@@ -41,8 +41,22 @@ export class ShelflingApi extends ApiService {
         });
     }
 
+    async removeLibraryUsers(id: string, userId: number) {
+        await this.client.delete(`/libraries/${id}/users`, {
+            requiresAuth: true,
+            data: { user_id: userId },
+        });
+    }
+
     async getLibraryUsers(id: string) {
         const res = await this.client.get<ApiService.Resource<LibraryUser[]>>(`/libraries/${id}/users`, {
+            requiresAuth: true,
+        });
+        return res.data.data;
+    }
+
+    async getLibraryBooks(id: string) {
+        const res = await this.client.get<ApiService.Resource<LibraryBook[]>>(`/libraries/${id}/books`, {
             requiresAuth: true,
         });
         return res.data.data;

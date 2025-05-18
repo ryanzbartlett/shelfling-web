@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
+import { useLibraryBooksQuery } from '@/composables/useLibraryBookQuery';
+import type { Library } from '@/types/shelflingApi';
 
-defineProps<{
-    id: string;
+const props = defineProps<{
+    library: Library;
 }>();
+
+const {
+    data: libraryBooks,
+} = useLibraryBooksQuery(props.library.id);
 </script>
 
 <template>
-    <LayoutDefault class="library-view flex flex-col gap-4">
-        <div>
-            Details
-        </div>
-    </LayoutDefault>
+    <div class="library-view space-y-4">
+        <ol class="space-y-2">
+            <li v-for="book in libraryBooks" :key="book.id" class="border rounded-md">
+                <pre>{{ book }}</pre>
+            </li>
+        </ol>
+    </div>
 </template>

@@ -31,11 +31,22 @@ function openNewBookDialog() {
             <li
                 v-for="book in libraryBooks"
                 :key="book.id"
-                class="border rounded-md"
+                class="border rounded-md p-3"
             >
-                <pre>{{ book }}</pre>
+                <div class="font-medium">
+                    {{ book.title }}
+                </div>
+                <div class="text-sm">
+                    by {{ book.author }}
+                </div>
+                <div class="text-xs opacity-65">
+                    added {{ new Date(book.created_at).toLocaleString() }}
+                </div>
             </li>
         </ol>
-        <NewBookDialog v-model="isNewBookDialogVisible" />
+        <NewBookDialog
+            v-model="isNewBookDialogVisible"
+            :library="library"
+        />
     </div>
 </template>

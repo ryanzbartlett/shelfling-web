@@ -65,6 +65,13 @@ const libraryBookSchema = z.object({
 
 type LibraryBook = z.infer<typeof libraryBookSchema>;
 
+const createLibraryBookParamsSchema = z.object({
+    author: z.string(),
+    title: z.string(),
+});
+
+type CreateLibraryBookParams = z.infer<typeof createLibraryBookParamsSchema>;
+
 export {
     LibraryTypes,
     LibraryTypeEnum,
@@ -75,6 +82,7 @@ export {
     addLibraryUsersParamsSchema,
     libraryUserSchema,
     libraryBookSchema,
+    createLibraryBookParamsSchema,
 
     type LibraryUserRole,
     type LibraryType,
@@ -83,4 +91,5 @@ export {
     type AddLibraryUsersParams,
     type LibraryUser,
     type LibraryBook,
+    type CreateLibraryBookParams,
 };

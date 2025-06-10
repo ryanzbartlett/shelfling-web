@@ -1,4 +1,4 @@
-import type { AddLibraryUsersParams, CreateLibraryParams, Library, LibraryBook, LibraryUser } from '@/types/shelflingApi';
+import type { AddLibraryUsersParams, CreateLibraryBookParams, CreateLibraryParams, Library, LibraryBook, LibraryUser } from '@/types/shelflingApi';
 import { ApiService } from './apiService';
 
 export class ShelflingApi extends ApiService {
@@ -59,6 +59,15 @@ export class ShelflingApi extends ApiService {
         const res = await this.client.get<ApiService.Resource<LibraryBook[]>>(`/libraries/${id}/books`, {
             requiresAuth: true,
         });
+        return res.data.data;
+    }
+
+    async createLibraryBook(id: string, params: CreateLibraryBookParams) {
+        const res = await this.client.post<ApiService.Resource<LibraryBook>>(
+            `/libraries/${id}/books`,
+            params,
+            { requiresAuth: true },
+        );
         return res.data.data;
     }
 }

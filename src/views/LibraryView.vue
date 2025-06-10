@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NewBookDialog from '@/components/NewBookDialog.vue';
-import { useLibraryBooksQuery } from '@/composables/useLibraryBookQuery';
+import { useLibraryBooksQuery } from '@/composables/useLibraryBooksQuery';
 import type { Library } from '@/types/shelflingApi';
 import { ref } from 'vue';
 

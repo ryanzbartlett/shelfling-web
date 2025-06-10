@@ -1,119 +1,55 @@
 <script setup lang="ts">
-import { useLibraryBook } from '@/composables/useLibraryBooksQuery';
-import { reactive, ref } from 'vue';
+import type { CreateLibraryBookParams } from '@/types/shelflingApi';
 
-const props = defineProps<{
-    libraryId: string;
-}>();
+const book = defineModel<CreateLibraryBookParams>({ required: true });
+
+withDefaults(defineProps<{
+    submitText?: string;
+    disabled?: boolean;
+}>(), {
+    submitText: 'Add',
+    disabled: false,
+});
 
 const emit = defineEmits<{
-    success: [];
+    submit: [];
 }>();
-
-const getDefaultBook = () => ({
-    title: '',
-    author: '',
-});
-
-const newBook = reactive<{
-    title: string;
-    author: string;
-}>(getDefaultBook());
-
-function resetFormFields() {
-    Object.assign(newBook, getDefaultBook());
-    isbn.value = '';
-}
-
-const {
-    createLibraryBook,
-    createLibraryBookPending,
-} = useLibraryBook(props.libraryId, {
-    onCreateSuccess: () => {
-        resetFormFields();
-        emit('success');
-    },
-});
-
-const isbn = ref('');
-
-const getFromIsbnPending = ref(false);
-
-async function getFromIsbn() {
-    getFromIsbnPending.value = true;
-
-    try {
-        const result = await fetch(`https://openlibrary.org/search.json?isbn=${isbn.value}`);
-        const data = await result.json();
-        const book = data.docs[0];
-        if (!book) return;
-
-        newBook.author = book.author_name[0];
-        newBook.title = book.title;
-    } catch (error) {
-        console.error(error);
-    } finally {
-        getFromIsbnPending.value = false;
-    }
-}
 </script>
 
 <template>
     <div class="book-form">
         <form
             class="flex flex-col gap-4"
-            @submit.prevent="() => getFromIsbn()"
-        >
-            <div class="form-group">
-                <label for="isbn">ISBN</label>
-                <input
-                    id="isbn"
-                    v-model="isbn"
-                    type="text"
-                    minlength="10"
-                    maxlength="13"
-                    required
-                >
-            </div>
-            <div class="flex justify-end">
-                <button
-                    type="submit"
-                    :disabled="getFromIsbnPending"
-                >
-                    Search
-                </button>
-            </div>
-        </form>
-        <form
-            class="flex flex-col gap-4"
-            @submit.prevent="() => createLibraryBook(newBook)"
+            @submit.prevent="emit('submit')"
         >
             <div class="form-group">
                 <label for="title">Title</label>
                 <input
                     id="title"
-                    v-model="newBook.title"
+                    v-model="book.title"
                     type="text"
                     maxlength="255"
                     required
+                    :disabled="disabled"
                 >
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
                 <input
                     id="author"
-                    v-model="newBook.author"
+                    v-model="book.author"
                     type="text"
                     maxlength="255"
                     required
+                    :disabled="disabled"
                 >
             </div>
             <div class="flex justify-end">
                 <button
                     type="submit"
-                    :disabled="createLibraryBookPending"
+                    :disabled="disabled"
                 >
-                    Add
+                    {{ submitText }}
                 </button>
             </div>
         </form>

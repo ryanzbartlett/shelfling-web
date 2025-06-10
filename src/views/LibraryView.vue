@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import EditBookDialog from '@/components/EditBookDialog.vue';
 import NewBookDialog from '@/components/NewBookDialog.vue';
 import { useLibraryBooksQuery } from '@/composables/useLibraryBooksQuery';
-import type { Library } from '@/types/shelflingApi';
+import type { Library, LibraryBook } from '@/types/shelflingApi';
 import { ref } from 'vue';
 
 const props = defineProps<{
@@ -13,9 +14,15 @@ const {
 } = useLibraryBooksQuery(props.library.id);
 
 const isNewBookDialogVisible = ref(false);
-
 function openNewBookDialog() {
     isNewBookDialogVisible.value = true;
+}
+
+const isEditBookDialogVisible = ref(false);
+const activeBook = ref<LibraryBook>();
+function openEditBookDialog(book: LibraryBook) {
+    activeBook.value = book;
+    isEditBookDialogVisible.value = true;
 }
 </script>
 
@@ -23,7 +30,7 @@ function openNewBookDialog() {
     <div class="library-view space-y-4">
         <button
             title="test"
-            @click="openNewBookDialog"
+            @click="() => openNewBookDialog()"
         >
             Add Book
         </button>
@@ -31,22 +38,34 @@ function openNewBookDialog() {
             <li
                 v-for="book in libraryBooks"
                 :key="book.id"
-                class="border rounded-md p-3"
+                class="border rounded-md p-3 flex justify-between"
             >
-                <div class="font-medium">
-                    {{ book.title }}
+                <div>
+                    <div class="font-medium">
+                        {{ book.title }}
+                    </div>
+                    <div class="text-sm">
+                        by {{ book.author }}
+                    </div>
+                    <div class="text-xs opacity-65">
+                        added {{ new Date(book.created_at).toLocaleString() }}
+                    </div>
                 </div>
-                <div class="text-sm">
-                    by {{ book.author }}
-                </div>
-                <div class="text-xs opacity-65">
-                    added {{ new Date(book.created_at).toLocaleString() }}
+                <div>
+                    <button @click="() => openEditBookDialog(book)">
+                        Edit
+                    </button>
                 </div>
             </li>
         </ol>
         <NewBookDialog
             v-model="isNewBookDialogVisible"
             :library="library"
+        />
+        <EditBookDialog
+            v-model="isEditBookDialogVisible"
+            :library="library"
+            :book="activeBook"
         />
     </div>
 </template>

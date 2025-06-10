@@ -12,6 +12,7 @@ export function useLibraryBooksQuery(libraryId: MaybeRef<string>) {
 
 export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
     onCreateSuccess?: (data: LibraryBook) => void;
+    onUpdateSuccess?: (data: LibraryBook) => void;
     onDeleteSuccess?: (id: string) => void;
 }) {
     const queryClient = useQueryClient();
@@ -22,22 +23,29 @@ export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
     } = useMutation({
         mutationFn: (params: CreateLibraryBookParams) => shelflingApi.createLibraryBook(unref(libraryId), params),
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['libraryBooks'] });
+            queryClient.invalidateQueries({ queryKey: ['libraryBooks', unref(libraryId)] });
             options?.onCreateSuccess?.(data);
         },
     });
 
-    // const { mutate: deleteLibary } = useMutation({
-    //     mutationFn: (id: string) => shelflingApi.deleteLibrary(id),
-    //     onSuccess: (data, id) => {
-    //         queryClient.invalidateQueries({ queryKey: ['libraries'] });
-    //         options?.onDeleteSuccess?.(id);
-    //     },
-    // });
+    const {
+        mutate: updateLibraryBook,
+        isPending: updateLibraryBookPending,
+    } = useMutation({
+        mutationFn: ({ bookId, params }: { bookId: number; params: CreateLibraryBookParams }) => {
+            return shelflingApi.updateLibraryBook(unref(libraryId), bookId, params);
+        },
+        onSuccess: (data, variables) => {
+            queryClient.invalidateQueries({ queryKey: ['libraryBooks', unref(libraryId)] });
+            queryClient.invalidateQueries({ queryKey: ['libraryBook', variables.bookId] });
+            options?.onUpdateSuccess?.(data);
+        },
+    });
 
     return {
         createLibraryBook,
         createLibraryBookPending,
-        // deleteLibary,
+        updateLibraryBook,
+        updateLibraryBookPending,
     };
 }

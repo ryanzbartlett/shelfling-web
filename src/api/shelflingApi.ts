@@ -70,6 +70,15 @@ export class ShelflingApi extends ApiService {
         );
         return res.data.data;
     }
+
+    async updateLibraryBook(libraryId: string, bookId: number, params: CreateLibraryBookParams) {
+        const res = await this.client.put<ApiService.Resource<LibraryBook>>(
+            `/libraries/${libraryId}/books/${bookId}`,
+            params,
+            { requiresAuth: true },
+        );
+        return res.data.data;
+    }
 }
 
 export const shelflingApi = new ShelflingApi();

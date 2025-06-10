@@ -55,20 +55,42 @@ const {
 
 <template>
     <div class="library-users-form border p-4">
-        <form @submit.prevent="submitForm" class="flex flex-col gap-4">
-            <div v-for="(member, index) in members" :key="index" class="member-row flex items-center gap-4">
+        <form
+            class="flex flex-col gap-4"
+            @submit.prevent="submitForm"
+        >
+            <div
+                v-for="(member, index) in members"
+                :key="index"
+                class="member-row flex items-center gap-4"
+            >
                 <input
-                    type="email"
                     v-model="member.email"
+                    type="email"
                     placeholder="Email address"
                     required
                     class="flex-grow"
-                />
-                <select v-model="member.role" required class="w-32">
-                    <option value="" disabled>Select role</option>
-                    <option :value="LibraryUserRoles.Owner">Owner</option>
-                    <option :value="LibraryUserRoles.Editor">Editor</option>
-                    <option :value="LibraryUserRoles.Viewer">Viewer</option>
+                >
+                <select
+                    v-model="member.role"
+                    required
+                    class="w-32"
+                >
+                    <option
+                        value=""
+                        disabled
+                    >
+                        Select role
+                    </option>
+                    <option :value="LibraryUserRoles.Owner">
+                        Owner
+                    </option>
+                    <option :value="LibraryUserRoles.Editor">
+                        Editor
+                    </option>
+                    <option :value="LibraryUserRoles.Viewer">
+                        Viewer
+                    </option>
                 </select>
                 <button
                     v-if="members.length > 1"
@@ -80,8 +102,20 @@ const {
                 </button>
             </div>
             <div class="flex justify-between">
-                <button type="button" class="px-4 py-2" @click="addMember">Add User</button>
-                <button type="submit" :disabled="isPending" class="px-4 py-2">Submit</button>
+                <button
+                    type="button"
+                    class="px-4 py-2"
+                    @click="addMember"
+                >
+                    Add User
+                </button>
+                <button
+                    type="submit"
+                    :disabled="isPending"
+                    class="px-4 py-2"
+                >
+                    Submit
+                </button>
             </div>
         </form>
     </div>

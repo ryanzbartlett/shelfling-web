@@ -12,11 +12,21 @@ const userStore = useUserStore();
             <div class="flex flex-col gap-2">
                 <div class="form-group">
                     <label for="user-name">Name</label>
-                    <input id="user-name" type="text" :value="userStore.user?.name" readonly />
+                    <input
+                        id="user-name"
+                        type="text"
+                        :value="userStore.user?.name"
+                        readonly
+                    >
                 </div>
                 <div class="form-group">
                     <label for="user-email">Email</label>
-                    <input id="user-email" type="email" :value="userStore.user?.email" readonly />
+                    <input
+                        id="user-email"
+                        type="email"
+                        :value="userStore.user?.email"
+                        readonly
+                    >
                 </div>
             </div>
         </form>

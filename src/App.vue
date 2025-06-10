@@ -24,8 +24,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AppHeader />
-  <main>
-      <RouterView />
-  </main>
+    <AppHeader />
+    <main>
+        <RouterView />
+    </main>
 </template>

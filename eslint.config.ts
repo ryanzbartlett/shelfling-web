@@ -12,7 +12,7 @@ export default defineConfigWithVueTs(
 
     globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
-    pluginVue.configs['flat/essential'],
+    pluginVue.configs['flat/recommended'],
     vueTsConfigs.recommended,
 
     stylistic.configs.customize({
@@ -32,6 +32,9 @@ export default defineConfigWithVueTs(
     {
         rules: {
             '@typescript-eslint/no-explicit-any': 'off',
+
+            'vue/html-indent': ['error', 4],
+            'vue/component-name-in-template-casing': 'error',
         },
     },
 );

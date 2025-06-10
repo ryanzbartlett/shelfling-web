@@ -30,21 +30,41 @@ const handleLogin = async () => {
 
 <template>
     <div class="login-form">
-        <form class="flex flex-col gap-4" @submit.prevent="handleLogin">
+        <form
+            class="flex flex-col gap-4"
+            @submit.prevent="handleLogin"
+        >
             <div class="flex flex-col gap-2">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" v-model="email" required />
+                    <input
+                        id="email"
+                        v-model="email"
+                        type="email"
+                        required
+                    >
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" v-model="password" required />
+                    <input
+                        id="password"
+                        v-model="password"
+                        type="password"
+                        required
+                    >
                 </div>
             </div>
             <div>
-                <button type="submit" :disabled="logInPending">
-                    <template v-if="logInPending">Logging in...</template>
-                    <template v-else>Log In</template>
+                <button
+                    type="submit"
+                    :disabled="logInPending"
+                >
+                    <template v-if="logInPending">
+                        Logging in...
+                    </template>
+                    <template v-else>
+                        Log In
+                    </template>
                 </button>
             </div>
         </form>

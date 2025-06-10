@@ -18,13 +18,22 @@ const {
 
 <template>
     <LayoutDefault class="library-parent">
-        <div v-if="fetchingLibrary">Loading library...</div>
-        <div v-else-if="library" class="space-y-4">
+        <div v-if="fetchingLibrary">
+            Loading library...
+        </div>
+        <div
+            v-else-if="library"
+            class="space-y-4"
+        >
             <header class="flex justify-between items-center">
                 <h2>{{ library.name }}</h2>
                 <div class="space-x-2">
-                    <RouterLink :to="{ name: 'Library' }">Books</RouterLink>
-                    <RouterLink :to="{ name: 'LibrarySettings' }">Settings</RouterLink>
+                    <RouterLink :to="{ name: 'Library' }">
+                        Books
+                    </RouterLink>
+                    <RouterLink :to="{ name: 'LibrarySettings' }">
+                        Settings
+                    </RouterLink>
                 </div>
             </header>
             <hr>

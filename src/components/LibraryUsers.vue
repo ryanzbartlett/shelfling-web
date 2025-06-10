@@ -56,11 +56,20 @@ function canRemoveUser(user: LibraryUser) {
 
 <template>
     <div class="library-users">
-        <div v-if="fetchingLibraryUsers">Loading users...</div>
-        <table v-else class="w-full text-left border-collapse border">
+        <div v-if="fetchingLibraryUsers">
+            Loading users...
+        </div>
+        <table
+            v-else
+            class="w-full text-left border-collapse border"
+        >
             <thead>
                 <tr>
-                    <th v-for="col in headers" :key="col.key" class="border py-1 px-2">
+                    <th
+                        v-for="col in headers"
+                        :key="col.key"
+                        class="border py-1 px-2"
+                    >
                         {{ col.text }}
                     </th>
                     <th class="border py-1 px-2">
@@ -69,10 +78,21 @@ function canRemoveUser(user: LibraryUser) {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in libraryUsers" :key="user.id">
-                    <td v-for="col in headers" :key="col.key" class="border py-1 px-2">
-                        <template v-if="col.key === 'role'">{{ getUserRoleText(user[col.key]) }}</template>
-                        <template v-else>{{ user[col.key] }}</template>
+                <tr
+                    v-for="user in libraryUsers"
+                    :key="user.id"
+                >
+                    <td
+                        v-for="col in headers"
+                        :key="col.key"
+                        class="border py-1 px-2"
+                    >
+                        <template v-if="col.key === 'role'">
+                            {{ getUserRoleText(user[col.key]) }}
+                        </template>
+                        <template v-else>
+                            {{ user[col.key] }}
+                        </template>
                     </td>
                     <td class="border py-1 px-2">
                         <Icon

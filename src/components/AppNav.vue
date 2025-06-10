@@ -32,7 +32,10 @@ const navItems = computed(() => userStore.user ? authItems : defaultItems);
 <template>
     <nav>
         <ul class="flex items-center gap-2">
-            <li v-for="item in navItems" :key="item.id">
+            <li
+                v-for="item in navItems"
+                :key="item.id"
+            >
                 <RouterLink :to="item.route">
                     {{ item.label }}
                 </RouterLink>

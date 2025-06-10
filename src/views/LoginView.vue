@@ -31,6 +31,9 @@ onMounted(() => {
 
 <template>
     <LayoutDefault class="login-view flex items-center justify-center">
-        <LoginForm class="w-100 max-w-[20rem]" @success="onSuccess" />
+        <LoginForm
+            class="w-100 max-w-[20rem]"
+            @success="onSuccess"
+        />
     </LayoutDefault>
 </template>

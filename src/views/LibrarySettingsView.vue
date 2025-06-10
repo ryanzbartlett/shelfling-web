@@ -17,7 +17,10 @@ const { canManageLibraryUsers } = usePermissions();
             <div class="border p-4 space-y-3">
                 <h3>Users</h3>
                 <LibraryUsers :library="library" />
-                <LibraryUsersForm v-if="canManageLibraryUsers(library)" :library-id="library.id" />
+                <LibraryUsersForm
+                    v-if="canManageLibraryUsers(library)"
+                    :library-id="library.id"
+                />
             </div>
         </div>
     </div>

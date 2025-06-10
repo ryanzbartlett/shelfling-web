@@ -46,7 +46,7 @@ const {
                     type="text"
                     maxlength="255"
                     required
-                />
+                >
             </div>
             <div class="form-group">
                 <label for="type">Type</label>
@@ -55,8 +55,12 @@ const {
                     v-model="newLibrary.type"
                     required
                 >
-                    <option :value="1">Book</option>
-                    <option :value="2">Movie</option>
+                    <option :value="1">
+                        Book
+                    </option>
+                    <option :value="2">
+                        Movie
+                    </option>
                 </select>
             </div>
             <div class="flex justify-end">

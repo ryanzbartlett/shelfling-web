@@ -119,6 +119,13 @@ export class ApiService {
     };
 
     /**
+     * Revoke access token
+     */
+    revokeAccess() {
+        this.clearAccessToken();
+    }
+
+    /**
      * Get the current user
      */
     async getUser() {

@@ -1,27 +1,16 @@
 <script setup lang="ts">
 import EditBookDialog from '@/components/EditBookDialog.vue';
 import NewBookDialog from '@/components/NewBookDialog.vue';
-import { useLibraryBooksQuery, useLibraryBook } from '@/composables/useLibraryBooksQuery';
 import { usePermissions } from '@/composables/usePermissions';
 import type { Library, LibraryBook } from '@/types/shelflingApi';
 import { ref } from 'vue';
+import BookList from '@/components/BookList.vue';
 
-const props = defineProps<{
+defineProps<{
     library: Library;
 }>();
 
 const { canEditLibrary } = usePermissions();
-
-const {
-    data: libraryBooks,
-} = useLibraryBooksQuery(props.library.id);
-
-const {
-    deleteLibraryBook,
-    deleteLibraryBookPending,
-} = useLibraryBook(props.library.id, {
-    onDeleteSuccess: () => {},
-});
 
 const isNewBookDialogVisible = ref(false);
 function openNewBookDialog() {
@@ -45,43 +34,10 @@ function openEditBookDialog(book: LibraryBook) {
         >
             Add Book
         </button>
-        <ol class="space-y-2">
-            <li
-                v-for="book in libraryBooks"
-                :key="book.id"
-                class="border rounded-md p-3 flex justify-between"
-            >
-                <div>
-                    <div class="font-medium">
-                        <RouterLink :to="{ name: 'Book', params: { bookId: book.id } }">
-                            {{ book.title }}
-                        </RouterLink>
-                    </div>
-                    <div class="text-sm">
-                        by {{ book.author }}
-                    </div>
-                    <div class="text-xs opacity-65">
-                        added {{ new Date(book.created_at).toLocaleString() }}
-                    </div>
-                </div>
-                <div>
-                    <button
-                        v-if="canEditLibrary(library)"
-                        @click="() => openEditBookDialog(book)"
-                    >
-                        Edit
-                    </button>
-                    <button
-                        v-if="canEditLibrary(library)"
-                        class="text-red-500"
-                        :disabled="deleteLibraryBookPending"
-                        @click="() => deleteLibraryBook(book.id)"
-                    >
-                        Del
-                    </button>
-                </div>
-            </li>
-        </ol>
+        <BookList
+            :library="library"
+            @edit="openEditBookDialog"
+        />
         <NewBookDialog
             v-model="isNewBookDialogVisible"
             :library="library"

@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/LibrariesView.vue'),
     },
     {
-        path: '/libraries/:id',
+        path: '/libraries/:libraryId',
         name: 'LibraryParent',
         component: () => import('@/views/LibraryParent.vue'),
         props: true,
@@ -29,6 +29,12 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/views/LibrarySettingsView.vue'),
             },
         ],
+    },
+    {
+        path: '/libraries/:libraryId/books/:bookId',
+        name: 'Book',
+        component: () => import('@/views/BookView.vue'),
+        props: true,
     },
 ];
 

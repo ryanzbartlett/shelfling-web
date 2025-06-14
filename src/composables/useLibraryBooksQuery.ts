@@ -37,7 +37,7 @@ export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
         },
         onSuccess: (data, variables) => {
             queryClient.invalidateQueries({ queryKey: ['libraryBooks', unref(libraryId)] });
-            queryClient.invalidateQueries({ queryKey: ['libraryBook', variables.bookId] });
+            queryClient.invalidateQueries({ queryKey: ['libraryBook', unref(libraryId), variables.bookId.toString()] });
             options?.onUpdateSuccess?.(data);
         },
     });

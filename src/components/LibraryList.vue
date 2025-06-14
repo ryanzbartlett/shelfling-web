@@ -37,7 +37,7 @@ const {
                     class="flex items-center gap-2"
                 >
                     <RouterLink
-                        :to="{ name: 'Library', params: { id: library.id } }"
+                        :to="{ name: 'Library', params: { libraryId: library.id } }"
                         class="flex items-center gap-2"
                     >
                         <Icon

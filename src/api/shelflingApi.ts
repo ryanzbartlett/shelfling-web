@@ -62,6 +62,14 @@ export class ShelflingApi extends ApiService {
         return res.data.data;
     }
 
+    async getLibraryBook(libraryId: string, bookId: string) {
+        const res = await this.client.get<ApiService.Resource<LibraryBook>>(
+            `/libraries/${libraryId}/books/${bookId}`,
+            { requiresAuth: true },
+        );
+        return res.data.data;
+    }
+
     async createLibraryBook(id: string, params: CreateLibraryBookParams) {
         const res = await this.client.post<ApiService.Resource<LibraryBook>>(
             `/libraries/${id}/books`,

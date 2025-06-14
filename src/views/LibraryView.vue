@@ -42,7 +42,9 @@ function openEditBookDialog(book: LibraryBook) {
             >
                 <div>
                     <div class="font-medium">
-                        {{ book.title }}
+                        <RouterLink :to="{ name: 'Book', params: { bookId: book.id } }">
+                            {{ book.title }}
+                        </RouterLink>
                     </div>
                     <div class="text-sm">
                         by {{ book.author }}

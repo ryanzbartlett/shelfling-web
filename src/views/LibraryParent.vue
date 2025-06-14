@@ -4,15 +4,15 @@ import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import { useQuery } from '@tanstack/vue-query';
 
 const props = defineProps<{
-    id: string;
+    libraryId: string;
 }>();
 
 const {
     data: library,
     isFetching: fetchingLibrary,
 } = useQuery({
-    queryKey: ['library', props.id],
-    queryFn: () => shelflingApi.getLibrary(props.id),
+    queryKey: ['library', props.libraryId],
+    queryFn: () => shelflingApi.getLibrary(props.libraryId),
 });
 </script>
 

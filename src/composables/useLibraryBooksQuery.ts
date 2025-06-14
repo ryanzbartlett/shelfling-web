@@ -42,10 +42,24 @@ export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
         },
     });
 
+    const {
+        mutate: deleteLibraryBook,
+        isPending: deleteLibraryBookPending,
+    } = useMutation({
+        mutationFn: (bookId: number) => shelflingApi.deleteLibraryBook(unref(libraryId), bookId),
+        onSuccess: (data, bookId) => {
+            queryClient.invalidateQueries({ queryKey: ['libraryBooks', unref(libraryId)] });
+            queryClient.invalidateQueries({ queryKey: ['libraryBook', unref(libraryId), bookId.toString()] });
+            options?.onDeleteSuccess?.(bookId.toString());
+        },
+    });
+
     return {
         createLibraryBook,
         createLibraryBookPending,
         updateLibraryBook,
         updateLibraryBookPending,
+        deleteLibraryBook,
+        deleteLibraryBookPending,
     };
 }

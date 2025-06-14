@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import EditBookDialog from '@/components/EditBookDialog.vue';
 import NewBookDialog from '@/components/NewBookDialog.vue';
-import { useLibraryBooksQuery } from '@/composables/useLibraryBooksQuery';
+import { useLibraryBooksQuery, useLibraryBook } from '@/composables/useLibraryBooksQuery';
+import { usePermissions } from '@/composables/usePermissions';
 import type { Library, LibraryBook } from '@/types/shelflingApi';
 import { ref } from 'vue';
 
@@ -9,9 +10,18 @@ const props = defineProps<{
     library: Library;
 }>();
 
+const { canEditLibrary } = usePermissions();
+
 const {
     data: libraryBooks,
 } = useLibraryBooksQuery(props.library.id);
+
+const {
+    deleteLibraryBook,
+    deleteLibraryBookPending,
+} = useLibraryBook(props.library.id, {
+    onDeleteSuccess: () => {},
+});
 
 const isNewBookDialogVisible = ref(false);
 function openNewBookDialog() {
@@ -29,6 +39,7 @@ function openEditBookDialog(book: LibraryBook) {
 <template>
     <div class="library-view space-y-4">
         <button
+            v-if="canEditLibrary(library)"
             title="test"
             @click="() => openNewBookDialog()"
         >
@@ -54,8 +65,19 @@ function openEditBookDialog(book: LibraryBook) {
                     </div>
                 </div>
                 <div>
-                    <button @click="() => openEditBookDialog(book)">
+                    <button
+                        v-if="canEditLibrary(library)"
+                        @click="() => openEditBookDialog(book)"
+                    >
                         Edit
+                    </button>
+                    <button
+                        v-if="canEditLibrary(library)"
+                        class="text-red-500"
+                        :disabled="deleteLibraryBookPending"
+                        @click="() => deleteLibraryBook(book.id)"
+                    >
+                        Del
                     </button>
                 </div>
             </li>

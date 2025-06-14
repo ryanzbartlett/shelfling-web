@@ -87,6 +87,12 @@ export class ShelflingApi extends ApiService {
         );
         return res.data.data;
     }
+
+    async deleteLibraryBook(libraryId: string, bookId: number) {
+        await this.client.delete(`/libraries/${libraryId}/books/${bookId}`, {
+            requiresAuth: true,
+        });
+    }
 }
 
 export const shelflingApi = new ShelflingApi();

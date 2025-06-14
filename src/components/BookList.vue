@@ -43,7 +43,7 @@ const {
                         by {{ book.author }}
                     </div>
                     <div class="text-xs opacity-65">
-                        added {{ new Date(book.created_at).toLocaleString() }}
+                        added {{ new Date(book.created_at).toLocaleString() }} | copies: {{ book.exemplar_count }}
                     </div>
                 </div>
                 <div>

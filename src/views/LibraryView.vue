@@ -29,6 +29,7 @@ function openEditBookDialog(book: LibraryBook) {
     <div class="library-view space-y-4">
         <button
             v-if="canEditLibrary(library)"
+            class="alt-button"
             title="test"
             @click="() => openNewBookDialog()"
         >

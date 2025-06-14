@@ -3,17 +3,17 @@ import type { CreateLibraryBookParams, LibraryBook } from '@/types/shelflingApi'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { unref, type MaybeRef } from 'vue';
 
-export function useLibraryBooksQuery(libraryId: MaybeRef<string>) {
+export function useLibraryBooksQuery(libraryId: MaybeRef<number>) {
     return useQuery({
         queryKey: ['libraryBooks', unref(libraryId)],
         queryFn: () => shelflingApi.getLibraryBooks(unref(libraryId)),
     });
 }
 
-export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
+export function useLibraryBook(libraryId: MaybeRef<number>, options?: {
     onCreateSuccess?: (data: LibraryBook) => void;
     onUpdateSuccess?: (data: LibraryBook) => void;
-    onDeleteSuccess?: (id: string) => void;
+    onDeleteSuccess?: (id: number) => void;
 }) {
     const queryClient = useQueryClient();
 
@@ -50,7 +50,7 @@ export function useLibraryBook(libraryId: MaybeRef<string>, options?: {
         onSuccess: (data, bookId) => {
             queryClient.invalidateQueries({ queryKey: ['libraryBooks', unref(libraryId)] });
             queryClient.invalidateQueries({ queryKey: ['libraryBook', unref(libraryId), bookId.toString()] });
-            options?.onDeleteSuccess?.(bookId.toString());
+            options?.onDeleteSuccess?.(bookId);
         },
     });
 

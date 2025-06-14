@@ -11,7 +11,7 @@ export function useLibraries() {
 
 export function useLibrary(options?: {
     onCreateSuccess?: (data: Library) => void;
-    onDeleteSuccess?: (id: string) => void;
+    onDeleteSuccess?: (id: number) => void;
 }) {
     const queryClient = useQueryClient();
 
@@ -27,7 +27,7 @@ export function useLibrary(options?: {
     });
 
     const { mutate: deleteLibary } = useMutation({
-        mutationFn: (id: string) => shelflingApi.deleteLibrary(id),
+        mutationFn: (id: number) => shelflingApi.deleteLibrary(id),
         onSuccess: (data, id) => {
             queryClient.invalidateQueries({ queryKey: ['libraries'] });
             options?.onDeleteSuccess?.(id);

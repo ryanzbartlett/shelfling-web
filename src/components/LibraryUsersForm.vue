@@ -6,7 +6,7 @@ import type { AddLibraryUsersParams } from '@/types/shelflingApi';
 import { LibraryUserRoles } from '@/types/shelflingApi';
 
 const props = defineProps<{
-    libraryId: string;
+    libraryId: number;
 }>();
 
 const emit = defineEmits<{

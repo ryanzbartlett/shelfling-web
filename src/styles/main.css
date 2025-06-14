@@ -19,13 +19,45 @@
             h-9 px-2;
     }
 
-    button {
-        @apply border inline-flex items-center
-            justify-center h-9 px-4 cursor-pointer;
+    /* button {
+        @apply border border-gray-300 bg-amber-50 text-gray-900
+            rounded px-5 py-2 h-9 font-semibold shadow-sm
+            inline-flex items-center justify-center cursor-pointer
+            transition-colors duration-150 hover:bg-amber-100
+            hover:border-amber-400 focus:outline-none focus:ring-2
+            focus:ring-amber-400 focus:ring-offset-2;
 
         &[disabled] {
-            @apply cursor-not-allowed opacity-65;
+            @apply cursor-not-allowed opacity-60 bg-gray-100 text-gray-400 border-gray-200;
         }
+    } */
+
+    button {
+        @apply border border-gray-400 bg-gray-100 text-black
+            rounded-none px-4 py-1 h-8 font-normal shadow
+            inline-flex items-center justify-center cursor-pointer
+            transition-colors duration-150
+            active:translate-x-0.5 active:translate-y-0.5
+            focus:outline-none focus:ring-2 focus:ring-blue-400
+            hover:bg-gray-200;
+
+        box-shadow:
+            inset 1px 1px 0 0 #fff,
+            inset -1px -1px 0 0 #888,
+            2px 2px 0 0 #888;
+
+        &:disabled {
+            @apply cursor-not-allowed opacity-60 bg-gray-200 text-gray-500 border-gray-300;
+            box-shadow: none;
+        }
+    }
+
+    button:active {
+        box-shadow:
+            inset 1px 1px 0 0 #888,
+            inset -1px -1px 0 0 #fff,
+            1px 1px 0 0 #888;
+        background-color: #e0e0e0;
     }
 
     dialog {

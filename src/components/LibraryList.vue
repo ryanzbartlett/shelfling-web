@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue';
 import { usePermissions } from '@/composables/usePermissions';
 
 const emit = defineEmits<{
-    libraryDeleted: [payload: string];
+    libraryDeleted: [payload: number];
 }>();
 
 const { canDeleteLibrary } = usePermissions();

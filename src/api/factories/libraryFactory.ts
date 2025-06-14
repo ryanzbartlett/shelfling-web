@@ -6,7 +6,7 @@ export class LibraryFactory extends Factory<Library> {
     protected definition(): Library {
         const created_at = faker.date.recent({ days: 14 });
         return {
-            id: faker.string.uuid(),
+            id: faker.number.int({ min: 1, max: 1000 }),
             name: faker.lorem.words({ min: 3, max: 5 }),
             type: faker.helpers.arrayElement([
                 LibraryTypes.Book,

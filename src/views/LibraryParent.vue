@@ -4,7 +4,7 @@ import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import { useQuery } from '@tanstack/vue-query';
 
 const props = defineProps<{
-    libraryId: string;
+    libraryId: number;
 }>();
 
 const {

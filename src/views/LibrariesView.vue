@@ -3,6 +3,7 @@ import LibraryList from '@/components/LibraryList.vue';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import CreateLibraryDialog from '@/components/CreateLibraryDialog.vue';
 import { ref } from 'vue';
+import Button from 'primevue/button';
 
 const isCreateLibraryDialogVisible = ref(false);
 
@@ -20,9 +21,9 @@ function onLibraryDeleted() {}
                 My Libraries
             </h2>
             <div>
-                <button @click="showCreateLibraryDialog">
+                <Button @click="showCreateLibraryDialog">
                     &plus; New Library
-                </button>
+                </Button>
             </div>
         </header>
         <CreateLibraryDialog v-model="isCreateLibraryDialogVisible" />

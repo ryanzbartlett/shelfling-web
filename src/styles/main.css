@@ -1,79 +1,32 @@
 @import 'tailwindcss';
 
-@layer base {
-    h1 {
-        @apply font-bold font-serif;
-    }
+:root {
+    --p-viva-0: #ffffff;
+    --p-viva-50: #f3f3f3;
+    --p-viva-100: #e7e7e8;
+    --p-viva-200: #cfd0d0;
+    --p-viva-300: #b7b8b9;
+    --p-viva-400: #9fa1a1;
+    --p-viva-500: #87898a;
+    --p-viva-600: #6e7173;
+    --p-viva-700: #565a5b;
+    --p-viva-800: #3e4244;
+    --p-viva-900: #262b2c;
+    --p-viva-950: #0e1315;
 
-    input {
-        &[type=text],
-        &[type=email],
-        &[type=password],
-        &[type=number],
-        &[type=date],
-        &[type=datetime-local] {
-            @apply border flex items-center
-                h-9 px-2;
-        }
-    }
-
-    textarea {
-        @apply border flex items-center px-2;
-    }
-
-    select {
-        @apply border flex items-center
-            h-9 px-2;
-    }
-
-    /* button {
-        @apply border border-gray-300 bg-amber-50 text-gray-900
-            rounded px-5 py-2 h-9 font-semibold shadow-sm
-            inline-flex items-center justify-center cursor-pointer
-            transition-colors duration-150 hover:bg-amber-100
-            hover:border-amber-400 focus:outline-none focus:ring-2
-            focus:ring-amber-400 focus:ring-offset-2;
-
-        &[disabled] {
-            @apply cursor-not-allowed opacity-60 bg-gray-100 text-gray-400 border-gray-200;
-        }
-    } */
-
-    button {
-        @apply border border-gray-400 bg-gray-100 text-black
-            rounded-none px-4 py-1 h-8 font-normal shadow
-            inline-flex items-center justify-center cursor-pointer
-            transition-colors duration-150
-            active:translate-x-0.5 active:translate-y-0.5
-            focus:outline-none focus:ring-2 focus:ring-blue-400
-            hover:bg-gray-200;
-
-        box-shadow:
-            inset 1px 1px 0 0 #fff,
-            inset -1px -1px 0 0 #888,
-            2px 2px 0 0 #888;
-
-        &:disabled {
-            @apply cursor-not-allowed opacity-60 bg-gray-200 text-gray-500 border-gray-300;
-            box-shadow: none;
-        }
-    }
-
-    button:active {
-        box-shadow:
-            inset 1px 1px 0 0 #888,
-            inset -1px -1px 0 0 #fff,
-            1px 1px 0 0 #888;
-        background-color: #e0e0e0;
-    }
-
-    dialog {
-        @apply p-4;
-    }
+    --ground-background: var(--p-viva-50);
 }
 
-@layer theme {
-    .form-group {
-        @apply flex flex-col;
+@layer base {
+    body {
+        background-color: var(--ground-background);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: bold;
     }
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { shelflingApi } from '@/api/shelflingApi';
-import { reactive } from 'vue';
+import ExemplarForm from '@/components/ExemplarForm.vue';
+import type { CreateExemplarParams } from '@/types/shelflingApi';
 
 const props = defineProps<{
     libraryId: number;
@@ -24,14 +25,6 @@ const {
     queryFn: () => shelflingApi.getBookExemplars(props.libraryId, props.bookId),
 });
 
-const getDefaultFormFields = () => ({
-    isbn: null,
-    condition: null,
-    condition_details: null,
-});
-
-const formFields = reactive(getDefaultFormFields());
-
 const conditionOptions = [
     { value: null, label: 'Select Condition' },
     { value: 0, label: 'Fine' },
@@ -43,16 +36,15 @@ const conditionOptions = [
 
 const {
     mutate: createExemplar,
+    isPending: isCreatingExemplar,
 } = useMutation({
-    mutationFn: (data: any) => shelflingApi.createBookExemplar(props.libraryId, props.bookId, data),
+    mutationFn: (data: CreateExemplarParams) => shelflingApi.createBookExemplar(props.libraryId, props.bookId, data),
     onSuccess: () => {
         // TODO: this doesn't seem to be invalidating the library books query
         queryClient.invalidateQueries({ queryKey: ['libraryBooks', props.libraryId] });
 
         queryClient.invalidateQueries({ queryKey: ['libraryBook', props.libraryId, props.bookId] });
         queryClient.invalidateQueries({ queryKey: ['exemplars', props.libraryId, props.bookId] });
-
-        Object.assign(formFields, getDefaultFormFields());
     },
 });
 
@@ -79,46 +71,10 @@ const {
             Back to library
         </RouterLink>
         <hr class="my-4">
-        <form @submit.prevent="() => createExemplar(formFields)">
-            <div class="mb-3">
-                <label
-                    for="isbn"
-                    class="form-label"
-                >ISBN</label>
-                <input
-                    id="isbn"
-                    v-model="formFields.isbn"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter ISBN"
-                >
-            </div>
-            <div class="mb-3">
-                <label
-                    for="condition"
-                    class="form-label"
-                >Condition</label>
-                <select
-                    id="condition"
-                    v-model="formFields.condition"
-                    class="form-select"
-                >
-                    <option
-                        v-for="option, idx in conditionOptions"
-                        :key="idx"
-                        :value="option.value"
-                    >
-                        {{ option.label }}
-                    </option>
-                </select>
-            </div>
-            <button
-                type="submit"
-                class="btn btn-primary"
-            >
-                Create Exemplar
-            </button>
-        </form>
+        <ExemplarForm
+            :loading="isCreatingExemplar"
+            @submit="createExemplar($event)"
+        />
         <hr class="my-4">
         <pre>{{ libraryBook }}</pre>
         <hr class="my-4">

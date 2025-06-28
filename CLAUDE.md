@@ -85,3 +85,7 @@ The application uses token-based authentication with the token stored as 'shelfl
 ### API Patterns
 
 The application uses a RESTful API pattern with composables that leverage TanStack Query for data fetching, caching, and cache invalidation. The API includes proper error handling and success callbacks for UI updates.
+
+## Development Guidelines
+
+- After making changes, always check for type or lint issues and correct them if necessary

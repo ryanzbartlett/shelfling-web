@@ -85,20 +85,27 @@ const createLibraryBookParamsSchema = z.object({
 
 type CreateLibraryBookParams = z.infer<typeof createLibraryBookParamsSchema>;
 
+function validateIsbn(v: string) {
+    return (v.length === 10 || v.length === 13);
+}
+
+const TINYTEXT = 255;
+const MEDIUMTEXT = 16777215;
+
 const exemplarSchema = z.object({
     id: z.number(),
-    isbn: z.string().nullable(),
-    condition: ExemplarConditionEnum,
-    condition_details: z.string().nullable(),
-    purchased_price: z.number().nullable(),
-    purchased_details: z.string().nullable(),
-    published_by: z.string().nullable(),
+    isbn: z.string().refine(validateIsbn, { message: 'Invalid ISBN' }).nullable(),
+    condition: ExemplarConditionEnum.nullable(),
+    condition_details: z.string().max(MEDIUMTEXT).nullable(),
+    purchased_price: z.number().nonnegative().nullable(),
+    purchased_details: z.string().max(MEDIUMTEXT).nullable(),
+    published_by: z.string().max(TINYTEXT).nullable(),
     published_date: z.string().datetime().nullable(),
     is_sold: z.boolean(),
-    height: z.number().nullable(),
-    width: z.number().nullable(),
-    depth: z.number().nullable(),
-    weight: z.number().nullable(),
+    height: z.number().nonnegative().nullable(),
+    width: z.number().nonnegative().nullable(),
+    depth: z.number().nonnegative().nullable(),
+    weight: z.number().nonnegative().nullable(),
     other_details: z.string().nullable(),
     created_at: z.string().datetime(),
     updated_at: z.string().datetime(),
@@ -107,12 +114,14 @@ const exemplarSchema = z.object({
 
 type Exemplar = z.infer<typeof exemplarSchema>;
 
-type CreateExemplarParams = Partial<Omit<Exemplar,
-    | 'id'
-    | 'created_at'
-    | 'updated_at'
-    | 'book_id'
->>;
+const createExemplarParamsSchema = exemplarSchema.omit({
+    id: true,
+    created_at: true,
+    updated_at: true,
+    book_id: true,
+}).partial();
+
+type CreateExemplarParams = z.infer<typeof createExemplarParamsSchema>;
 
 export {
     LibraryTypes,
@@ -128,6 +137,7 @@ export {
     libraryBookSchema,
     createLibraryBookParamsSchema,
     exemplarSchema,
+    createExemplarParamsSchema,
 
     type LibraryUserRole,
     type LibraryType,

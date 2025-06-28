@@ -8,10 +8,17 @@
     input {
         &[type=text],
         &[type=email],
-        &[type=password] {
+        &[type=password],
+        &[type=number],
+        &[type=date],
+        &[type=datetime-local] {
             @apply border flex items-center
                 h-9 px-2;
         }
+    }
+
+    textarea {
+        @apply border flex items-center px-2;
     }
 
     select {

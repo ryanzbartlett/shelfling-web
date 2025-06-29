@@ -3,6 +3,7 @@ import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';
 import type { PrimeVueConfiguration } from 'primevue/config';
 import Nora from '@primeuix/themes/nora';
+import ConfirmationService from 'primevue/confirmationservice';
 
 const ShelflingPreset = definePreset(Nora, {
     semantic: {
@@ -38,6 +39,15 @@ const ShelflingPreset = definePreset(Nora, {
             },
         },
     },
+    components: {
+        button: {
+            root: {
+                label: {
+                    fontWeight: '400',
+                },
+            },
+        },
+    },
 });
 
 export function initPrimeVue(app: App<Element>) {
@@ -49,4 +59,6 @@ export function initPrimeVue(app: App<Element>) {
             },
         },
     } as PrimeVueConfiguration);
+
+    app.use(ConfirmationService);
 }

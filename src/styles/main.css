@@ -1,6 +1,19 @@
 @import 'tailwindcss';
 
 :root {
+    --p-salmon-0: #ffffff;
+    --p-salmon-50: #FFF1EB;
+    --p-salmon-100: #FFE2D6;
+    --p-salmon-200: #FFD4C2;
+    --p-salmon-300: #FFC6AD;
+    --p-salmon-400: #FFB899;
+    --p-salmon-500: #FFA985;
+    --p-salmon-600: #FF9D74;
+    --p-salmon-700: #FF8D5C;
+    --p-salmon-800: #FF7E47;
+    --p-salmon-900: #FF7033;
+    --p-salmon-950: #FF621F;
+
     --p-viva-0: #ffffff;
     --p-viva-50: #f3f3f3;
     --p-viva-100: #e7e7e8;
@@ -15,6 +28,8 @@
     --p-viva-950: #0e1315;
 
     --ground-background: var(--p-viva-50);
+
+    /* --p-primary-contrast-color: var(--p-viva-900) !important; */
 }
 
 @layer base {
@@ -28,5 +43,12 @@
     h3 {
         font-family: Georgia, "Times New Roman", serif;
         font-weight: bold;
+    }
+
+    a {
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
     }
 }

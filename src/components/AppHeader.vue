@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useShelflingApi } from '@/composables/useShelflingApi';
 import { useUserStore } from '@/stores/userStore';
-import { Icon } from '@iconify/vue';
 import AppNav from '@/components/AppNav.vue';
 
 const { logOut } = useShelflingApi();
@@ -26,9 +25,12 @@ const userStore = useUserStore();
                 <RouterLink :to="{ name: 'Account' }">
                     {{ userStore.user.name }}
                 </RouterLink>
-                <Icon
-                    icon="mdi:logout"
-                    class="cursor-pointer"
+                <Button
+                    icon="pi pi-sign-out"
+                    variant="text"
+                    rounded
+                    size="small"
+                    aria-label="Log out"
                     @click="logOut"
                 />
             </div>

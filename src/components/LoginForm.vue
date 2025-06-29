@@ -34,38 +34,36 @@ const handleLogin = async () => {
             class="flex flex-col gap-4"
             @submit.prevent="handleLogin"
         >
-            <div class="flex flex-col gap-2">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
+            <div class="flex flex-col gap-4">
+                <FloatLabel variant="on">
+                    <InputText
                         id="email"
                         v-model="email"
                         type="email"
                         required
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
+                        fluid
+                    />
+                    <label for="email">Email</label>
+                </FloatLabel>
+                <FloatLabel variant="on">
+                    <Password
                         id="password"
                         v-model="password"
-                        type="password"
+                        :feedback="false"
                         required
-                    >
-                </div>
+                        toggle-mask
+                        fluid
+                    />
+                    <label for="password">Password</label>
+                </FloatLabel>
             </div>
             <div>
-                <button
+                <Button
+                    :label="logInPending ? 'Logging in...' : 'Log In'"
                     type="submit"
-                    :disabled="logInPending"
-                >
-                    <template v-if="logInPending">
-                        Logging in...
-                    </template>
-                    <template v-else>
-                        Log In
-                    </template>
-                </button>
+                    :loading="logInPending"
+                    fluid
+                />
             </div>
         </form>
     </div>
